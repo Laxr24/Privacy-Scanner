@@ -43,6 +43,7 @@ fun getInstalledAppsAndPermissions(packageManager: PackageManager): List<AppInfo
         val permissions = mutableListOf<String>()
         val packageIcon = packageManager.getApplicationIcon(packageName)
         val isSystem = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+
         try {
             // Get package info to retrieve permissions
             val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
