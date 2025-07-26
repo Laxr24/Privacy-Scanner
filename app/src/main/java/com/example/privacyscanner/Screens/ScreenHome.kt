@@ -1,5 +1,6 @@
 package com.example.privacyscanner.Screens
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -20,25 +23,22 @@ import com.example.privacyscanner.Components.AppInfoCard
 import com.example.privacyscanner.Components.AppTitle
 import com.example.privacyscanner.Components.ExportDataButton
 import com.example.privacyscanner.viewModel.AppListVM
+import kotlinx.coroutines.delay
 
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun Home(context: Context) {
 
+
+
     Column(
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp)
             .verticalScroll(rememberScrollState())
     ) {
-
-        val viewModel = viewModel<AppListVM>()
-
-        val appInfo = viewModel.appInfo.collectAsStateWithLifecycle()
-
-
-        // Start of UI Components
 
         AppTitle()
 
@@ -48,6 +48,12 @@ fun Home(context: Context) {
         }, text = "Export Data")
         Spacer(Modifier.height(10.dp))
 
+        Text("Getting all app data")
+//        CircularProgressIndicator()
+
+
+        val viewModel = viewModel<AppListVM>()
+        val appInfo = viewModel.appInfo.collectAsStateWithLifecycle()
         if (appInfo.value.isEmpty()) {
             CircularProgressIndicator()
         } else {

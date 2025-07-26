@@ -1,36 +1,31 @@
 package com.example.privacyscanner.utilityFunctions
 
-import android.annotation.SuppressLint
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import com.example.privacyscanner.dataTypes.AppInfoDataType
-
-fun greet(){
-    Log.d("tag", "Greetings Mr. Robot")
-}
+import kotlinx.coroutines.delay
 
 
-fun addNumber(){
-    Log.d("tag", "2+3 = ${2+3}")
-}
+suspend fun getInstalledAppsAndPermissions(packageManager: PackageManager, appList: MutableList<AppInfoDataType>){
 
-
-@SuppressLint("QueryPermissionsNeeded")
-fun getInstalledAppsAndPermissions(packageManager: PackageManager): List<AppInfoDataType> {
-
-    val TAG = "getInstalledAppsAndPermissions"
+    val tag = "getInstalledAppsAndPermissions"
 
     val packageManager = packageManager
     val apps = mutableListOf<AppInfoDataType>()
+
 
     val flags = PackageManager.GET_META_DATA or
             (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) PackageManager.GET_PERMISSIONS else 0)
 
 
     val installedPackages = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        packageManager.getInstalledApplications(PackageManager.ApplicationInfoFlags.of(flags.toLong()))
+        packageManager.getInstalledApplications(
+            PackageManager.ApplicationInfoFlags.of(
+                PackageManager.GET_META_DATA.toLong()
+            )
+        )
     } else {
         @Suppress("DEPRECATION")
         packageManager.getInstalledApplications(flags)
@@ -62,11 +57,14 @@ fun getInstalledAppsAndPermissions(packageManager: PackageManager): List<AppInfo
                 }
             }
         } catch (e: PackageManager.NameNotFoundException) {
-            Log.e(TAG, "Package not found: $packageName", e)
+            Log.e(tag, "Package not found: $packageName", e)
         }
 
-        apps.add(AppInfoDataType(appName, packageName, packageIcon, isSystem, permissions))
+        delay(100)
+        appList.add(AppInfoDataType(appName, packageName, packageIcon, isSystem, permissions))
+
+
     }
-    return apps
+//    return apps
 }
 
