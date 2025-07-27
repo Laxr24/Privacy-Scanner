@@ -1,6 +1,5 @@
 package com.example.privacyscanner.dataTypes
 
-import android.content.pm.ApplicationInfo
 import android.graphics.drawable.Drawable
 
 data class AppInfoDataType(

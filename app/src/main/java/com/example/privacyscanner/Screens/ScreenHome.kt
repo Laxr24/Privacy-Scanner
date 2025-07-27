@@ -1,98 +1,89 @@
 package com.example.privacyscanner.Screens
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.privacyscanner.Components.AppInfoCard
 import com.example.privacyscanner.Components.AppTitle
+import com.example.privacyscanner.Components.ApplicationStats
 import com.example.privacyscanner.Components.ExportDataButton
+import com.example.privacyscanner.Components.LoadingAnimation
+import com.example.privacyscanner.utilityFunctions.shareReport
 import com.example.privacyscanner.viewModel.AppListVM
-import kotlinx.coroutines.delay
 
 
-@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun Home(context: Context) {
 
 
+    val viewModel = viewModel<AppListVM>()
+    val appInfo = viewModel.appInfo.collectAsStateWithLifecycle()
+    val systemApps = viewModel.systemApps.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchAppInfo()
+    }
 
     Column(
         verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxSize()
+            .background(color = Color(0x00000000))
             .padding(10.dp)
-            .verticalScroll(rememberScrollState())
     ) {
 
-        AppTitle()
-
-        Spacer(Modifier.height(10.dp))
-        ExportDataButton(onClick = {
-            Log.d("tag", "Export Data to to CSV from Database")
-        }, text = "Export Data")
-        Spacer(Modifier.height(10.dp))
-
-        Text("Getting all app data")
-//        CircularProgressIndicator()
-
-
-        val viewModel = viewModel<AppListVM>()
-        val appInfo = viewModel.appInfo.collectAsStateWithLifecycle()
-        if (appInfo.value.isEmpty()) {
-            CircularProgressIndicator()
-        } else {
-            // All ApplicationInfo
-            for (app in appInfo.value) {
-                AppInfoCard(
-                    appName = app.appName,
-                    score = when (app.permissions.size) {
-                        0 -> {
-                            100
-                        }
-
-                        in 1..5 -> {
-                            95
-                        }
-
-                        in 6..10 -> {
-                            75
-                        }
-
-                        in 11..15 -> {
-                            25
-                        }
-
-                        in 15..50 -> {
-                            10
-                        }
-
-                        else -> {
-                            0
-                        }
-                    },
-                    permissions = app.permissions.size.toString(),
-                    isSystemApp = app.isSystemApp,
-                    hasTrackers = false,
-                    appIcon = app.appIcon
+        AppTitle("Privacy Scanner")
+        // Export Button
+        if (appInfo.value.isNotEmpty()) {
+            Spacer(Modifier.height(10.dp))
+            ApplicationStats(appInfo.value.size, systemApps.value)
+            Spacer(Modifier.height(10.dp))
+            ExportDataButton(onClick = {
+                shareReport(
+                    context,
+                    "Total Installed apps: ${appInfo.value.size}\nSystem apps: ${systemApps.value}\nUser apps: ${appInfo.value.size - systemApps.value}\n\nScanner by Privacy Scanner"
                 )
-                Log.d("tag", "${app.appIcon}")
-                Spacer(Modifier.height(4.dp))
+                Log.d("tag", "Export Data to to CSV from Database")
+            }, text = "Share Data")
+        }
+
+        Spacer(Modifier.height(10.dp))
+
+        if (appInfo.value.isEmpty()) {
+            LoadingAnimation()
+        } else {
+            LazyColumn(
+
+            ) {
+                items(appInfo.value) { app ->
+                    AppInfoCard(
+                        appName = app.appName,
+                        score = app.permissions.size,
+                        permissions = app.permissions.size.toString(),
+                        isSystemApp = app.isSystemApp,
+                        hasTrackers = false,
+                        appIcon = app.appIcon,
+                        packageName = app.packageName,
+                        context = context
+                    )
+                    Spacer(Modifier.height(4.dp))
+                }
+
             }
         }
 

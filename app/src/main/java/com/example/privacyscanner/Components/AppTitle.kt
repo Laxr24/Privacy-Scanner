@@ -10,9 +10,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AppTitle(){
-    Text("Privacy Dashboard",
-        fontSize = 40.sp,
+fun AppTitle(title: String){
+    Text(title,
+        fontSize = 35.sp,
         fontWeight = FontWeight.ExtraBold,
         color = Color(0xFF333333),
         modifier = Modifier

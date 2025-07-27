@@ -37,8 +37,8 @@ fun ExportDataButton(
         label = "buttonAlphaAnimation"
     )
 
-    val startColor = Color(0xFF90EE90)
-    val endColor = Color(0xFFFFA07A)
+    val startColor = Color(0xFF2547CE)
+    val endColor = Color(0xFF3C4E93)
 
     Box(
         modifier = modifier
@@ -60,7 +60,7 @@ fun ExportDataButton(
     ) {
         Text(
             text = text,
-            color = Color.DarkGray,
+            color = Color.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.ExtraBold
         )
