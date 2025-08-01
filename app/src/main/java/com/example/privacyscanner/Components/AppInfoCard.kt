@@ -132,11 +132,11 @@ fun AppInfoCard(
                         fontWeight = FontWeight.Medium,
                         color = Color.Black
                     )
-                    Text(
-                        text = "Has trackers: $hasTrackers",
-                        fontWeight = FontWeight.Medium,
-                        color = Color.Black
-                    )
+//                    Text(
+//                        text = "Has trackers: $hasTrackers",
+//                        fontWeight = FontWeight.Medium,
+//                        color = Color.Black
+//                    )
                 }
             }
         }

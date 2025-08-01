@@ -95,6 +95,8 @@ fun shareReport(context: Context, textToShare: String, chooserTitle: String? = "
 
 fun appInfoPage(context: Context, packageName: String) {
     try {
+
+        // Initial check for the current package information
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 context.packageManager.getPackageInfo(
@@ -109,6 +111,8 @@ fun appInfoPage(context: Context, packageName: String) {
             Toast.makeText(context, "App not found: $packageName", Toast.LENGTH_SHORT).show()
             return
         }
+
+        // Explicit intent to open app settings page
 
         val intent = Intent().apply {
             action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS

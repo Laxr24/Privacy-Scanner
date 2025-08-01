@@ -37,4 +37,9 @@ class AppListVM(application: Application) : AndroidViewModel(application) {
     }
 
 
+    fun emptyInfo(){
+        _appInfo.value = emptyList<AppInfoDataType>()
+    }
+
+
 }

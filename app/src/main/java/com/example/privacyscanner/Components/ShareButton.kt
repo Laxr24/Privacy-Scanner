@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ExportDataButton(
+fun ShareButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier

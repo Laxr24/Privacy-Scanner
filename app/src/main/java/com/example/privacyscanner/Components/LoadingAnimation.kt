@@ -34,7 +34,7 @@ fun LoadingAnimation() {
                 strokeWidth = 4.dp
             )
             Spacer(Modifier.height(4.dp))
-            Text("Scanning...", fontSize = 40.sp, fontWeight = FontWeight.Medium)
+            Text("Scanning system...", fontSize = 35.sp, fontWeight = FontWeight.Medium)
         }
     }
 }

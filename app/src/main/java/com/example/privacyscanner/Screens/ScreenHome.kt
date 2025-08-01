@@ -1,7 +1,6 @@
 package com.example.privacyscanner.Screens
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,8 +20,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.privacyscanner.Components.AppInfoCard
 import com.example.privacyscanner.Components.AppTitle
 import com.example.privacyscanner.Components.ApplicationStats
-import com.example.privacyscanner.Components.ExportDataButton
 import com.example.privacyscanner.Components.LoadingAnimation
+import com.example.privacyscanner.Components.ShareButton
 import com.example.privacyscanner.utilityFunctions.shareReport
 import com.example.privacyscanner.viewModel.AppListVM
 
@@ -53,13 +52,19 @@ fun Home(context: Context) {
             Spacer(Modifier.height(10.dp))
             ApplicationStats(appInfo.value.size, systemApps.value)
             Spacer(Modifier.height(10.dp))
-            ExportDataButton(onClick = {
+            ShareButton(onClick = {
                 shareReport(
                     context,
                     "Total Installed apps: ${appInfo.value.size}\nSystem apps: ${systemApps.value}\nUser apps: ${appInfo.value.size - systemApps.value}\n\nScanner by Privacy Scanner"
                 )
-                Log.d("tag", "Export Data to to CSV from Database")
             }, text = "Share Data")
+
+            Spacer(Modifier.height(4.dp))
+
+            ShareButton(onClick = {
+                viewModel.emptyInfo()
+                viewModel.fetchAppInfo()
+            }, text = "Scan again ⬇️")
         }
 
         Spacer(Modifier.height(10.dp))
