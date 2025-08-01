@@ -29,7 +29,6 @@ import com.example.privacyscanner.viewModel.AppListVM
 @Composable
 fun Home(context: Context) {
 
-
     val viewModel = viewModel<AppListVM>()
     val appInfo = viewModel.appInfo.collectAsStateWithLifecycle()
     val systemApps = viewModel.systemApps.collectAsStateWithLifecycle()
@@ -73,7 +72,6 @@ fun Home(context: Context) {
             LoadingAnimation()
         } else {
             LazyColumn(
-
             ) {
                 items(appInfo.value) { app ->
                     AppInfoCard(

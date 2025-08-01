@@ -94,8 +94,8 @@ fun shareReport(context: Context, textToShare: String, chooserTitle: String? = "
 
 
 fun appInfoPage(context: Context, packageName: String) {
-    try {
 
+    try {
         // Initial check for the current package information
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
