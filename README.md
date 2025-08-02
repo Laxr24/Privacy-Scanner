@@ -36,7 +36,7 @@ Some screenshots attached here for ref.
 - The share button let's user share a small summary as text with any app that supports text sharing. 
 
 
-## Steps to set up in Android Stuio
+## Steps to set up in Android Studio
 
 1. Download the project from github by clicking the Green Code button and then Download Zip button. 
 
