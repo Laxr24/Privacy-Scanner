@@ -36,3 +36,20 @@ Some screenshots attached here for ref.
 - The share button let's user share a small summary as text with any app that supports text sharing. 
 
 
+## Steps to set up in Android Stuio
+
+1. Download the project from github by clicking the Green Code button and then Download Zip button. 
+
+2. Extract the folder in a suitable location.(Remember the extracted folder location should not be so deep in the file system. It might cause error in the Android Studio)
+
+3. Install android studio from official website and install the latest stable version. 
+
+4. Opening up Android Studio for the first time will ask to download necessary SDK and other tools. Follow the instructions. 
+
+5. Open up the extracted project folder that was downloaded and unzipped earlier. 
+
+6. Android Studio will figure out the project, download necessary tools and SDK and build the application. 
+
+7. Connect your android device via USB and you can directly run the app on your mobile device. 
+
+
