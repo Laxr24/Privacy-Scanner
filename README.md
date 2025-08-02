@@ -5,15 +5,18 @@
 
 Some screenshots attached here for ref.
 
-!["Splash Screen"](./images/splash-screen.jpg)
+<img src="./images/splash-screen.jpg" alt="Splash screen" width="200px"/>
+
 ### Fig: 1.1 Splash Screen with customized icon
 
 
-!["Splash Screen"](./images/scan-screen.jpg)
+<img src="./images/scan-screen.jpg" alt="Scan screen" width="200px"/>
+
 ### Fig: 1.2 Scan Screen
 
 
 <img src="./images/home-screen.jpg" alt="Home screen" width="200px"/>
+
 ### Fig: 1.3 Home screen after finish scanning
 
 
